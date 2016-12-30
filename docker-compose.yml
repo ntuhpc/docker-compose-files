@@ -1,0 +1,11 @@
+version: '2'
+services:
+    influxdb:
+        image: "tutum/influxdb:latest"
+        ports:
+            - "8086:8086"
+            - "8083:8083"
+    grafana:
+        image: "grafana/grafana:3.1.0"
+        ports:
+            - "3000:3000"
