@@ -1,0 +1,19 @@
+version: '3'
+
+services:
+  influxdb:
+    image: "influxdb:1.2-alpine"
+    ports:
+      - "2003:2003"
+      - "8086:8086"
+    volumes:
+      - monitor-data-volume:/var/lib/influxdb
+      - ./influxdb.conf:/etc/influxdb/influxdb.conf
+    entrypoint: influxd -config /etc/influxdb/influxdb.conf
+  grafana:
+    image: "grafana/grafana:latest"
+    ports:
+      - "3000:3000"
+
+volumes:
+  monitor-data-volume:
