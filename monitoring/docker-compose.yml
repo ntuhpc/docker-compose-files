@@ -5,7 +5,6 @@ services:
     image: "influxdb:1.2-alpine"
     ports:
       - "2003:2003"
-      - "8086:8086"
     volumes:
       - monitor-data-volume:/var/lib/influxdb
       - ./influxdb.conf:/etc/influxdb/influxdb.conf
@@ -13,9 +12,16 @@ services:
   grafana:
     image: "grafana/grafana:latest"
     ports:
-      - "3000:3000"
+      - "127.0.0.1:3000:3000"
+    volumes:
+      - monitor-data-volume:/var/lib/grafana
     environment:
+      - GF_SECURITY_ADMIN_USER=${GFU}
       - GF_SECURITY_ADMIN_PASSWORD=${GFP}
+      - GF_USER_ALLOW_SIGN_UP=false
+      - GF_AUTH_ANONYMOUS_ENABLED=true
+      - GF_AUTH_ANONYMOUS_ORG_NAME=NTU HPC
+      - GF_SERVER_ROOT_URL=https://grafana.ntuhpc.org/
 
 volumes:
   monitor-data-volume:
