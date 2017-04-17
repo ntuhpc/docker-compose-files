@@ -7,13 +7,14 @@ This docker compose file describes the monitoring stack for NTU HPC team.
 To run the containers, do
 
 ```bash
-$ GFU=<grafana-user> GFP=<grafana-passwd> docker-compose up -d
+$ GFU=<grafana-admin-user> GFP=<grafana-admin-passwd> docker-compose up -d
 ```
 
 The defaults in docker compose file has the following effects:
 
 - Starts containers for `influxdb` and `grafana`
-- Maps port `2003` of `influxdb` for listening on carbon input
+///- Maps port `2003` of `influxdb` for listening on carbon input
+- Maps port `8086` of `influxdb`
 - Maps port `3000` of `grafana` (to localhost)
 - Mounts a volume to `influxdb` (at `/var/lib/influxdb`) and `grafana` (at `/var/lib/grafana`)
 - Run `influxdb` according to `influxdb.conf`
@@ -23,3 +24,11 @@ The defaults in docker compose file has the following effects:
 - Enables anonymous user for organization `NTU HPC`
 
 To add InfluxDB as a data source in Grafana, use the URL `http://influxdb:8086`.
+
+### Creating a database in InfluxDB
+
+Run the following command on the server running the container
+
+```bash
+$ curl -XPOST localhost:8086/query --data-urlencode 'q=CREATE DATABASE "<db-name>"'
+```
