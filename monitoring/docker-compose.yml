@@ -23,6 +23,7 @@ services:
       - GF_AUTH_ANONYMOUS_ENABLED=true
       - GF_AUTH_ANONYMOUS_ORG_NAME=NTU HPC
       - GF_SERVER_ROOT_URL=https://grafana.ntuhpc.org/
+      - GF_INSTALL_PLUGINS=grafana-clock-panel,raintank-worldping-app
 
 volumes:
   monitor-data-volume:
