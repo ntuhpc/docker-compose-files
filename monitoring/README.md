@@ -2,14 +2,6 @@
 
 This docker compose file describes the monitoring stack for NTU HPC team.
 
-## Usage
-
-To run the containers, do
-
-```bash
-$ GFU=<grafana-admin-user> GFP=<grafana-admin-passwd> docker-compose up -d
-```
-
 The defaults in docker compose file has the following effects:
 
 - Starts containers for `influxdb` and `grafana`
@@ -23,12 +15,24 @@ The defaults in docker compose file has the following effects:
 - Disables user signup for `grafana`
 - Enables anonymous user for organization `NTU HPC`
 
-To add InfluxDB as a data source in Grafana, use the URL `http://influxdb:8086`.
+## Usage
 
-### Creating a database in InfluxDB
+To run the containers, do
+
+```bash
+$ GFU=<grafana-admin-user> GFP=<grafana-admin-passwd> docker-compose up -d
+```
+
+### Setting up InfluxDB
 
 Run the following command on the server running the container
 
 ```bash
 $ curl -XPOST localhost:8086/query --data-urlencode 'q=CREATE DATABASE "<db-name>"'
 ```
+
+### Setting up Grafana
+
+Change the main organization's name to "NTU HPC".
+
+To add InfluxDB as a data source in Grafana, use the URL `http://influxdb:8086`.
