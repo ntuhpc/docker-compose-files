@@ -1,0 +1,11 @@
+version: '3'
+
+services:
+  ghost:
+    image: "ghost:alpine"
+    volumes:
+      - ghost-data-volume:/var/lib/ghost
+      - ./config.js:/var/lib/ghost/config.js
+
+volumes:
+  ghost-data-volume:
